@@ -47,7 +47,7 @@ def getConfig(section, name):
     return config.get(section, name)
   except:
     sys.stderr.write('Warning: Config key not found \'%s\'/\'%s\'.\n' % \
-      (self._CONFIGKEY, name))
+      (section, name))
     return None
 
 """ Main Function. This function loads a configuration file, sets up the
