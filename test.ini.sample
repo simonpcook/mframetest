@@ -1,0 +1,24 @@
+; Sample MFrameTest Configuration File
+
+[core]
+tester  = dejagnu
+printer = github
+preloaders = stdenv, githeads
+verbose = 1
+
+[test_dejagnu]
+num_tests   = 1
+siteexp     = ../site.exp
+test_1_dir  = ../build
+test_1_cmd  = make check-gcc
+test_1_pre  = test-
+
+[print_github]
+wikidir     = ../wiki
+remote      = git@github.com:simonpcook/example.wiki.git
+index       = Index
+key         = TEST
+description = Toolchain Testing
+
+[load_githeads]
+dirs = ../gcc
