@@ -125,12 +125,11 @@ def main():
     sys.exit(1)
 
   # Pass test data to printer
-  #try:
-  if True:
+  try:
     printer.storeResults(results, testenv)
- # except:
-  #  sys.stderr.write('Error: Printer Storage failed.\n')
-  #  sys.exit(1)
+  except:
+    sys.stderr.write('Error: Printer Storage failed.\n')
+    sys.exit(1)
   
   # Finally tidy everything up
   # (If an exception is thrown, carry on)
