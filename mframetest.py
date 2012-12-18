@@ -32,7 +32,7 @@ import ConfigParser, sys
 configname = None
 config     = None
 tester     = None
-printer    = None
+printer    = []
 loaders    = []
 testenv    = {}
 
@@ -83,14 +83,16 @@ def main():
       (testname))
     sys.exit(1)
   global printer
-  printname = getConfig('core', 'printer')
-  try:
-    mod = __import__('printers.' + printname)
-    printer = eval('mod.' + printname + '.' + printname + '(config)')
-  except:
-    sys.stderr.write('Error: Unable to load Printer \'%s\'.\n' % \
-      (printname))
-    sys.exit(1)
+  printnames = getConfig('core', 'printer').split(',')
+  for printname in printnames:
+    printname = printname.replace(' ', '') # Remove spaces from list
+    try:
+      mod = __import__('printers.' + printname)
+      printer.append(eval('mod.' + printname + '.' + printname + '(config)'))
+    except:
+      sys.stderr.write('Error: Unable to load Printer \'%s\'.\n' % \
+        (printname))
+      sys.exit(1)
   
   # Load preloaders, setting test variables as required
   global loaders
@@ -114,7 +116,7 @@ def main():
     print
 
   # Load previous run's tests for comparisons
-  lasttest = printer.loadLastTest()
+  lasttest = printer[0].loadLastTest()
 
   # Call upon tester to carry out its test
   results = {}
@@ -125,11 +127,12 @@ def main():
     sys.exit(1)
 
   # Pass test data to printer
-  try:
-    printer.storeResults(results, testenv)
-  except:
-    sys.stderr.write('Error: Printer Storage failed.\n')
-    sys.exit(1)
+  for p in printer:
+    try:
+      p.storeResults(results, testenv)
+    except:
+      sys.stderr.write('Error: Printer Storage failed.\n')
+      sys.exit(1)
   
   # Finally tidy everything up
   # (If an exception is thrown, carry on)
@@ -137,10 +140,11 @@ def main():
     tester.cleanup()
   except:
     sys.stderr.write('Warning: Tester cleanup failed.\n')
-  try:
-    printer.cleanup()
-  except:
-    sys.stderr.write('Warning: Printer cleanup failed.\n')
+  for p in printer:
+    try:
+      p.cleanup()
+    except:
+      sys.stderr.write('Warning: Printer cleanup failed.\n')
   for loader in loaders:
     try:
       loader.cleanup()
