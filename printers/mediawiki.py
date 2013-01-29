@@ -165,7 +165,7 @@ tests can be found [[%s-Changed-%s|here]].
     return results
 
   """ Stores results to wiki. """
-  def storeResults(self, results, env):
+  def storeResults(self, rundesc, results, env):
     # If the index page does not exist, attempt to create a new one
     if self.site.pages[self.index].edit() == '':
       sys.stderr.write('Warning: No index found, creating new.\n')
@@ -183,8 +183,8 @@ tests can be found [[%s-Changed-%s|here]].
     # Build testresult row
     testtable = self.genResultTable(results, env, 2)
     testrow = '<!-- ## NEXTROW ## -->\n|-\n ! '
-    testrow += '[[%s-Test-%s|Test %s]]<br>\'\'%s\'\' || %s ' % \
-      (self.key, nextkey, nextkey, env['Test Date'], testtable)
+    testrow += '[[%s-Test-%s|Test %s]]<br>\'\'%s\'\'<br>\'\'%s\'\' || %s ' % \
+      (self.key, nextkey, nextkey, env['Test Date'], rundesc, testtable)
 
     # Update index and next row key
     index = index.replace('<!-- ## NEXTROW ## -->', testrow)

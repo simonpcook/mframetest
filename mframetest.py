@@ -67,6 +67,12 @@ def main():
     sys.stderr.write('Error: Unable to load config \'%s\'.\n' % (configname))
     sys.exit(1)
 
+  # The next argument will be a variable (if specifed) will give us a comment to put next to the results
+  if len(sys.argv) > 2:
+    rundesc = sys.argv[2]
+  else:
+    rundesc = ''
+
   # Print Application name and version if verbose
   if config.get('core', 'verbose') == '1':
     sys.stderr.write('MFrameTest ' + VERSION + '\n')
@@ -129,7 +135,7 @@ def main():
   # Pass test data to printer
   for p in printer:
     try:
-      p.storeResults(results, testenv)
+      p.storeResults(rundesc, results, testenv)
     except:
       sys.stderr.write('Error: Printer Storage failed.\n')
       sys.exit(1)

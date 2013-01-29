@@ -45,7 +45,7 @@ class libnotify:
     return {}
 
   """ Prints results to output """
-  def storeResults(self, results, env):
+  def storeResults(self, rundesc, results, env):
     for dataset in sorted(results):
       resultset = results[dataset]['results']
       resultset = self.resultFormat(dataset, resultset, env)

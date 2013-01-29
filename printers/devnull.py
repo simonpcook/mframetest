@@ -37,7 +37,7 @@ class devnull:
     return {}
 
   """ Accept results. """
-  def storeResults(self, results, env):
+  def storeResults(self, rundesc, results, env):
     pass
 
   """ Post-execution cleanup (if required). """
