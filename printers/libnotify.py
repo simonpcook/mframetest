@@ -2,7 +2,7 @@
 ##
 ##                                  MFrameTest
 ##
-##  Copyright (C) 2012 Embecosm Limited
+##  Copyright (C) 2012-2013 Embecosm Limited
 ##
 ##  This file is part of MFrameTest.
 ##

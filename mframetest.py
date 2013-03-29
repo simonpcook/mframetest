@@ -3,7 +3,7 @@
 ##
 ##                                  MFrameTest
 ##
-##  Copyright (C) 2012 Embecosm Limited
+##  Copyright (C) 2012-2013 Embecosm Limited
 ##
 ##  This file is part of MFrameTest.
 ##
@@ -76,7 +76,7 @@ def main():
   # Print Application name and version if verbose
   if config.get('core', 'verbose') == '1':
     sys.stderr.write('MFrameTest ' + VERSION + '\n')
-    sys.stderr.write('Copyright (C) 2012 Embecosm Limited\n\n')
+    sys.stderr.write('Copyright (C) 2012-2013 Embecosm Limited\n\n')
 
   # Load tester and printer
   global tester
